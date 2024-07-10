@@ -55,7 +55,7 @@ void TestHALCore::_u8g2_init()
   u8g2.enableUTF8Print(); // 启用UTF-8打印，用于中文显示
   u8g2.setFontMode(1); // 设置字体模式为透明背景
   u8g2.setFontDirection(0); // 设置字体方向为从左至右
-  u8g2.setFont(u8g2_font_6x10_tf); // 设置默认字体
+  u8g2.setFont(u8g2_font_wqy12_t_gb2312); // 设置默认字体
   u8g2.clearBuffer(); // 清除缓冲区
   u8g2.sendBuffer(); // 更新屏幕
 }
