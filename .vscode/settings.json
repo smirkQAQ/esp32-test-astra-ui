@@ -1,0 +1,8 @@
+{
+  "files.associations": {
+    "*.nvue": "vue",
+    "cmath": "cpp",
+    "cstring": "cpp",
+    "utility": "cpp"
+  }
+}
