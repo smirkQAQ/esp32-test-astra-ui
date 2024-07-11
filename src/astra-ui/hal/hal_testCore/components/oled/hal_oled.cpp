@@ -3,6 +3,15 @@
 
 U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0);
 
+void TestHALCore::_ssd1306_reset(bool _state)
+{
+  if (_state) {
+    u8g2.begin();
+  } else {
+    
+  }
+}
+
 void TestHALCore::_ssd1306_set_cursor(unsigned char _x, unsigned char _y)
 {
   u8g2.setCursor(_x, _y);
@@ -11,9 +20,9 @@ void TestHALCore::_ssd1306_set_cursor(unsigned char _x, unsigned char _y)
 void TestHALCore::_ssd1306_fill(unsigned char _data)
 {
   u8g2.clearBuffer();
-  for (int page = 0; page < 8; page++) {
-    for (int column = 0; column < 128; column++) {
-      u8g2.drawPixel(column, page);
+  for (int y = 0; y < u8g2.getDisplayHeight(); y++) {
+    for (int x = 0; x < u8g2.getDisplayWidth(); x++) {
+      u8g2.drawPixel(x, y);
     }
   }
   u8g2.sendBuffer();
@@ -38,7 +47,7 @@ void TestHALCore::_screenOff()
 
 void TestHALCore::_ssd1306_init()
 {
-  // u8g2.begin() // 已经在_u8g2_init()中调用
+  _ssd1306_reset(true);
 }
 
 void TestHALCore::_u8g2_init()
@@ -99,7 +108,7 @@ void TestHALCore::_setFont(const unsigned char *_font)
 unsigned char TestHALCore::_getFontWidth(std::string &_text)
 {
   // 获取字体宽度
-  return u8g2.getStrWidth(_text.c_str());
+  return u8g2.getUTF8Width(_text.c_str());
 }
 
 unsigned char TestHALCore::_getFontHeight()

@@ -20,6 +20,7 @@ public:
 
 
 protected:
+  void _ssd1306_reset(bool _state);
   void _ssd1306_set_cursor(unsigned char _x, unsigned char _y);
   void _ssd1306_fill(unsigned char _data);
 
