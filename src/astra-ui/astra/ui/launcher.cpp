@@ -179,6 +179,6 @@ void Launcher::update() {
   HAL::canvasUpdate();
 
   //time++;
-  time = HAL::millis() / 1000;
+  time = millis() / 1000;
 }
 }

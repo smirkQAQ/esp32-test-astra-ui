@@ -196,14 +196,6 @@ public:
    * @brief system timers.
    */
 public:
-  static void delay(unsigned long _mill) { get()->_delay(_mill); }
-
-  virtual void _delay(unsigned long _mill) {}
-
-  static unsigned long millis() { return get()->_millis(); }
-
-  virtual unsigned long _millis() { return 0; }
-
   static unsigned long getTick() { return get()->_getTick(); }
 
   virtual unsigned long _getTick() { return 0; }

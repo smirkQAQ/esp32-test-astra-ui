@@ -38,7 +38,7 @@ inline void Animation::exit() {
   static unsigned char bufferLen = 8 * HAL::getBufferTileHeight() * HAL::getBufferTileWidth();
   auto *bufferPointer = (unsigned char *) HAL::getCanvasBuffer();
 
-  HAL::delay(getUIConfig().fadeAnimationSpeed);
+  delay(getUIConfig().fadeAnimationSpeed);
 
   if (getUIConfig().lightMode)
     switch (fadeFlag) {

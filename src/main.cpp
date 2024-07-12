@@ -3,9 +3,6 @@
 #include "./astra-ui/astra/ui/launcher.h"
 #include "./astra-ui/hal/hal.h"
 #include "./astra-ui/hal/hal_testCore/hal_testCore.h"
-// #include "icons.hpp"
-
-// #include "./astra-ui/astra/astra_logo.h"
 
 auto *astraLauncher = new astra::Launcher();
 auto *rootPage = new astra::Tile("root");
@@ -23,7 +20,6 @@ void setup() {
 
   // astra::drawLogo(1000);
 
-  // HAL::printInfo("loading...");
   rootPage->addItem(new astra::List("测试1"));
   rootPage->addItem(new astra::List("测试2"));
   rootPage->addItem(new astra::List("测试测试3"));

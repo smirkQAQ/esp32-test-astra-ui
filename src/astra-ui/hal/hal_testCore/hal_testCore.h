@@ -52,10 +52,6 @@ public:
   void _drawRFrame(float _x, float _y, float _w, float _h, float _r) override;
 
 public:
-  void _delay(unsigned long _mill) override;
-  unsigned long _millis() override;
-
-public:
   bool _getKey(key::KEY_INDEX _keyIndex) override;
 
 public:
