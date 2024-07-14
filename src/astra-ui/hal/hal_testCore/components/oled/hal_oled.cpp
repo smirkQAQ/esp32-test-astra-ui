@@ -1,7 +1,23 @@
 #include "../../hal_testCore.h"
 #include <u8g2lib.h>
 
+#ifdef U8X8_HAVE_HW_SPI
+#include <SPI.h>
+#endif
+
+#ifdef U8X8_HAVE_HW_I2C
+#include <Wire.h>
+#endif
+
+#define OLED_MOSI  23
+#define OLED_SDA   21
+#define OLED_CLK   22
+#define OLED_CS    14
+#define OLED_DC    27
+#define OLED_RESET 26
+
 U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0);
+// U8G2_SSD1306_128X64_VCOMH0_F_4W_SW_SPI u8g2(U8G2_R2, OLED_CLK, OLED_MOSI, OLED_CS, OLED_DC, OLED_RESET);
 
 void TestHALCore::_ssd1306_reset(bool _state)
 {
@@ -45,21 +61,18 @@ void TestHALCore::_screenOff()
   u8g2.setPowerSave(1);
 }
 
-void TestHALCore::_ssd1306_init()
-{
-  _ssd1306_reset(true);
-}
+// void TestHALCore::_ssd1306_init()
+// {
+//   _ssd1306_reset(true);
+// }
 
 void TestHALCore::_u8g2_init()
 {
-  // 初始化 u8g2 结构体
-  // 根据所选的芯片进行初始化工作，初始化完成后，显示器处于关闭状态
-  // 打开显示器
+  // SPI.begin(OLED_CLK, OLED_MOSI, OLED_CS);
+  // SPI.setFrequency(1000000); // 设置SPI时钟频率，可以根据实际情况调整
 
-  // 字体模式选择
-  // 字体方向选择
-  // 字库选择
-  // 初始化 u8g2 结构体
+  Wire.begin(OLED_SDA, OLED_CLK); //SDA SCL
+  u8g2.setBusClock(800000); //800KHZ
   u8g2.begin();
   u8g2.enableUTF8Print(); // 启用UTF-8打印，用于中文显示
   u8g2.setFontMode(1); // 设置字体模式为透明背景
@@ -196,13 +209,5 @@ void TestHALCore::_drawFrame(float _x, float _y, float _w, float _h)
 
 void TestHALCore::_drawRFrame(float _x, float _y, float _w, float _h, float _r)
 {
-  // 在指定位置绘制圆角矩形边框
-  // 注意：u8g2 库本身不直接支持绘制圆角矩形边框，需要使用 drawRBox() 和 drawBox() 组合实现
-  // 这里假设 _r 是圆角半径
-  u8g2.drawRBox(_x, _y, _w, _h, _r);
-  // 清除内部的矩形以形成边框
-  u8g2.drawBox(_x + _r, _y, _w - 2 * _r, _r);
-  u8g2.drawBox(_x + _r, _y + _h - _r, _w - 2 * _r, _r);
-  u8g2.drawBox(_x, _y + _r, _r, _h - 2 * _r);
-  u8g2.drawBox(_x + _w - _r, _y + _r, _r, _h - 2 * _r);
+  u8g2.drawRFrame((int16_t)std::round(_x), (int16_t)std::round(_y), (int16_t)std::round(_w), (int16_t)std::round(_h), (int16_t)std::round(_r));
 }

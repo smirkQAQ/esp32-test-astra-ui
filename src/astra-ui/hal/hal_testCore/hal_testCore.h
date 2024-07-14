@@ -3,7 +3,7 @@
 class TestHALCore : public HAL {
 private:
   void _esp32_init();
-  void _ssd1306_init();
+  // void _ssd1306_init();
   void _key_init();
   void _u8g2_init();
 
@@ -13,7 +13,7 @@ public:
 public:
   inline void init() override {
     _esp32_init();
-    _ssd1306_init();
+    // _ssd1306_init();
     _key_init();
     _u8g2_init();
   }

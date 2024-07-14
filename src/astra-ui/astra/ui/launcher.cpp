@@ -144,41 +144,36 @@ void Launcher::update() {
   selector->render(camera->getPosition());
   camera->update(currentMenu, selector);
 
-//  if (time == 500) selector->go(3);  //test
-//  if (time == 800) open();  //test
-//  if (time == 1200) selector->go(0);  //test
-//  if (time == 1500) selector->go(1z);  //test
-//  if (time == 1800) selector->go(6);  //test
-//  if (time == 2100) selector->go(1);  //test
-//  if (time == 2300) selector->go(0);  //test
-//  if (time == 2500) open();  //test
-//  if (time == 2900) close();
-//  if (time == 3200) selector->go(0);  //test
-//  if (time >= 3250) time = 0;  //test
+  // 按键去抖动处理
+  static unsigned long lastDebounceTime = 0;
+  const unsigned long debounceDelay = 50; // 去抖动延时，根据需要调整
 
-  if (time > 2) {
+  // 按键扫描频率优化
+  const unsigned long keyScanInterval = 10; // 按键扫描间隔，根据需要调整
+  static unsigned long lastKeyScanTime = 0;
+
+  unsigned long currentTime = millis();
+  if (currentTime - lastKeyScanTime >= keyScanInterval) {
+    lastKeyScanTime = currentTime;
     HAL::keyScan();
-    time = 0;
-  }
 
-  if (*HAL::getKeyFlag() == key::KEY_PRESSED) {
-    *HAL::getKeyFlag() = key::KEY_NOT_PRESSED;
-    for (unsigned char i = 0; i < key::KEY_NUM; i++) {
-      if (HAL::getKeyMap()[i] == key::CLICK) {
-        if (i == 0) { selector->goPreview(); }//selector去到上一个项目
-        else if (i == 1) { selector->goNext(); }//selector去到下一个项目
-      } else if (HAL::getKeyMap()[i] == key::PRESS) {
-        if (i == 0) { close(); }//退出当前项目
-        else if (i == 1) { open(); }//打开当前项目
+    if (*HAL::getKeyFlag() == key::KEY_PRESSED) {
+      if (currentTime - lastDebounceTime >= debounceDelay) {
+        lastDebounceTime = currentTime;
+        for (unsigned char i = 0; i < key::KEY_NUM; i++) {
+          if (HAL::getKeyMap()[i] == key::CLICK) {
+            if (i == 0) { selector->goPreview(); }
+            else if (i == 1) { selector->goNext(); }
+          }
+        }
+        std::fill(HAL::getKeyMap(), HAL::getKeyMap() + key::KEY_NUM, key::INVALID);
+        *HAL::getKeyFlag() = key::KEY_NOT_PRESSED;
       }
     }
-    std::fill(HAL::getKeyMap(), HAL::getKeyMap() + key::KEY_NUM, key::INVALID);
-    *HAL::getKeyFlag() = key::KEY_NOT_PRESSED;
   }
 
   HAL::canvasUpdate();
 
-  //time++;
-  time = millis() / 1000;
+  time = currentTime / 1000;
 }
 }

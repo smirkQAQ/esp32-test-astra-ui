@@ -17,6 +17,7 @@ typedef enum keyFilter {
   CHECKING = 0,
   KEY_0_CONFIRM,
   KEY_1_CONFIRM,
+  KEY_2_CONFIRM,
   RELEASED,
 } KEY_FILTER;
 
@@ -34,6 +35,7 @@ typedef enum KeyType {
 typedef enum keyIndex {
   KEY_0 = 0,
   KEY_1,
+  KEY_2,
   KEY_NUM,
 } KEY_INDEX;
 }

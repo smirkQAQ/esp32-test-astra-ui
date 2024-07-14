@@ -14,16 +14,21 @@ namespace astra {
  * @brief config of astra ui. astra ui的配置结构体
  */
 struct config {
-  float tileAnimationSpeed = 80;
-  float listAnimationSpeed = 65;
-  float selectorYAnimationSpeed = 52;
-  float selectorXAnimationSpeed = 70;
-  float selectorWidthAnimationSpeed = 70;
-  float selectorHeightAnimationSpeed = 55;
+  // 执行延时
+  float fadeAnimationSpeed = 0;
+
+  // 平滑度 
+  float tileAnimationSpeed = 90;
+  float listAnimationSpeed = 90;
+  float selectorYAnimationSpeed = 90;
+  float selectorXAnimationSpeed = 90;
+  float selectorWidthAnimationSpeed = 90;
+  float selectorHeightAnimationSpeed = 90;
+  float cameraAnimationSpeed = 90;
+  
+  // 未使用
   float windowAnimationSpeed = 25;
   float sideBarAnimationSpeed = 15;
-  float fadeAnimationSpeed = 100;
-  float cameraAnimationSpeed = 80;
   float logoAnimationSpeed = 70;
 
   bool tileUnfold = true;
@@ -66,7 +71,7 @@ struct config {
 
   float popMargin = 4; //弹窗边距
   float popRadius = 2; //弹窗圆角半径
-  float popSpeed = 90; //弹窗动画速度
+  float popSpeed = 45; //弹窗动画速度
 
   float logoStarLength = 2; //logo星星长度
   float logoTextHeight = 14; //logo文字高度

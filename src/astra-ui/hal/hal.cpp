@@ -2,7 +2,7 @@
 // Created by Fir on 2024/2/8.
 //
 
-#include <Arduino.h>
+#include <cstring>
 #include "hal.h"
 
 HAL *HAL::hal = nullptr;
